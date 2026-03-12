@@ -44,10 +44,10 @@ minikube version
 
 # 2. Estrutura do projeto Kubernetes
 
-Dentro da pasta `brokeone-dispatcher-job`:
+Dentro da pasta `brokerone-dispatcher-job`:
 
 ```
-brokeone-dispatcher-job/
+brokerone-dispatcher-job/
 │
 ├─ dispatcher-deployment.yaml
 ├─ dispatcher-rbac.yaml
@@ -138,7 +138,7 @@ O dispatcher utiliza variáveis de ambiente provenientes do `.env`.
 
 ```powershell
 kubectl create secret generic brokerone-kafka-dispatcher-keys-local \
---from-env-file=C:\Users\brendon.carvalho\Downloads\brokeone-dispatcher-job\.env \
+--from-env-file=C:\Users\brendon.carvalho\Downloads\brokerone-dispatcher-job\.env \
 -n local
 ```
 
@@ -240,14 +240,14 @@ Arquivo `application.yaml`:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: brokeone-dispatcher-job-local
+  name: brokerone-dispatcher-job-local
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/SEU-USUARIO/SEU-REPO.git
     targetRevision: main
-    path: brokeone-dispatcher-job
+    path: brokerone-dispatcher-job
   destination:
     server: https://kubernetes.default.svc
     namespace: local
