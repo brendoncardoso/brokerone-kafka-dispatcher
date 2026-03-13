@@ -46,7 +46,7 @@ spec:
             - name: KAFKA_MAX_CONCURRENT_JOBS
               value: "5"
             - name: KAFKA_JOB_TTL_SECONDS
-              value: "30"
+              value: "50"
             - name: KAFKA_JOB_ACTIVE_DEADLINE_SECONDS
               value: "300"
             - name: ARGOCD_APP_INSTANCE
