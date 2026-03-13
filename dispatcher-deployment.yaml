@@ -18,7 +18,7 @@ spec:
     spec:
       serviceAccountName: dispatcher-sa
       automountServiceAccountToken: true
-      terminationGracePeriodSeconds: 10
+      terminationGracePeriodSeconds: 25
       enableServiceLinks: false
       containers:
         - name: dispatcher
