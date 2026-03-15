@@ -28,6 +28,9 @@ spec:
             - name: FECHAMENTO_NAMESPACE
               value: local
 
+            - name: KAFKA_PROTOCOL_ENTRIES_GROUP
+              value: broker-fechamento-dispatcher-local
+
             - name: FECHAMENTO_JOB_IMAGE
               value: broker-app-worker-base:local
 
@@ -48,9 +51,11 @@ spec:
 
             - name: ARGOCD_APP_INSTANCE
               value: brokerone-fechamento-dispatcher-local
+
           envFrom:
             - secretRef:
                 name: brokerone-fechamento-dispatcher-keys-local
+
           resources:
             limits:
               cpu: "0.5"
