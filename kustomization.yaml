@@ -5,6 +5,6 @@ namespace: local
 
 resources:
   - namespace.yaml
-  - dispatcher-sa.yaml
-  - dispatcher-rbac.yaml
-  - dispatcher-deployment.yaml
+  - fechamento-sa.yaml
+  - fechamento-rbac.yaml
+  - fechamento-deployment.yaml

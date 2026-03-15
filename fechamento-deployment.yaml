@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brokerone-fechamento-dispatcher-local
+  namespace: local
+  labels:
+    app: brokerone-fechamento-dispatcher-local
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: brokerone-fechamento-dispatcher-local
+  template:
+    metadata:
+      labels:
+        app: brokerone-fechamento-dispatcher-local
+    spec:
+      serviceAccountName: fechamento-dispatcher-sa
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 15
+      enableServiceLinks: false
+      containers:
+        - name: fechamento-dispatcher
+          image: broker-app-worker-base:local
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: FECHAMENTO_NAMESPACE
+              value: local
+
+            - name: FECHAMENTO_JOB_IMAGE
+              value: broker-app-worker-base:local
+
+            - name: FECHAMENTO_JOB_IMAGE_PULL_POLICY
+              value: IfNotPresent
+
+            - name: FECHAMENTO_SECRET_REF
+              value: brokerone-fechamento-dispatcher-keys-local
+
+            - name: FECHAMENTO_MAX_EXISTING_JOBS
+              value: 5
+
+            - name: FECHAMENTO_JOB_TTL_SECONDS
+              value: 50
+
+            - name: FECHAMENTO_JOB_ACTIVE_DEADLINE_SECONDS
+              value: 300
+
+            - name: ARGOCD_APP_INSTANCE
+              value: brokerone-fechamento-dispatcher-local
+          envFrom:
+            - secretRef:
+                name: brokerone-fechamento-dispatcher-keys-local
+          resources:
+            limits:
+              cpu: 0.5
+              memory: 512Mi
+            requests:
+              cpu: 0.1
+              memory: 300Mi

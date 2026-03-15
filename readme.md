@@ -1,4 +1,4 @@
-# BrokerOne Kafka Dispatcher — Ambiente Local
+# Brokerone Fechamento Dispatcher — Ambiente Local
 
 Este guia descreve como executar o **dispatcher Kafka de fechamento** em ambiente local utilizando:
 
@@ -44,10 +44,10 @@ minikube version
 
 # 2. Estrutura do projeto Kubernetes
 
-Dentro da pasta `brokerone-kafka-dispatcher`:
+Dentro da pasta `brokerone-fechamento-dispatcher`:
 
 ```
-brokerone-kafka-dispatcher/
+brokerone-fechamento-dispatcher/
 │
 ├─ dispatcher-deployment.yaml
 ├─ dispatcher-rbac.yaml
@@ -137,16 +137,16 @@ kubectl get namespace local
 O dispatcher utiliza variáveis de ambiente provenientes do `.env`.
 
 ```powershell
-kubectl create secret generic brokerone-kafka-dispatcher-keys-local \
---from-env-file=C:\Users\brendon.carvalho\Downloads\brokerone-kafka-dispatcher\.env \
+kubectl create secret generic brokerone-fechamento-dispatcher-keys-local \
+--from-env-file=C:\Users\brendon.carvalho\Downloads\brokerone-fechamento-dispatcher\.env \
 -n local
 ```
 
 Caso precise recriar:
 
 ```powershell
-kubectl delete secret brokerone-kafka-dispatcher-keys-local -n local
-kubectl create secret generic brokerone-kafka-dispatcher-keys-local \
+kubectl delete secret brokerone-fechamento-dispatcher-keys-local -n local
+kubectl create secret generic brokerone-fechamento-dispatcher-keys-local \
 --from-env-file=.env \
 -n local
 ```
@@ -240,14 +240,14 @@ Arquivo `application.yaml`:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: brokerone-kafka-dispatcher-local
+  name: brokerone-fechamento-dispatcher-local
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/SEU-USUARIO/SEU-REPO.git
     targetRevision: main
-    path: brokerone-kafka-dispatcher
+    path: brokerone-fechamento-dispatcher
   destination:
     server: https://kubernetes.default.svc
     namespace: local
@@ -343,7 +343,7 @@ Sempre que mudar código:
 
 ```
 docker build
-kubectl rollout restart deployment brokerone-kafka-dispatcher-local -n local
+kubectl rollout restart deployment brokerone-fechamento-dispatcher-local -n local
 ```
 
 Ou atualizar tag da imagem no Git para Argo sincronizar.
@@ -414,7 +414,7 @@ kubectl get events -n local
 Reiniciar deployment:
 
 ```bash
-kubectl rollout restart deployment brokerone-kafka-dispatcher-local -n local
+kubectl rollout restart deployment brokerone-fechamento-dispatcher-local -n local
 ```
 
 Abrir dashboard do Minikube:
